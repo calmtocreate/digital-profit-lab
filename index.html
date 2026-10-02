@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f4ef" />
+
+  <title>Digital Profit Lab</title>
+  <meta
+    name="description"
+    content="Build your personalized Digital Profit Starter Stack and discover your clearest next step online."
+  />
+
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --surface: #ffffff;
+      --surface-soft: #efe8df;
+      --text: #26231f;
+      --muted: #665f57;
+      --accent: #6f6254;
+      --accent-dark: #4c4238;
+      --accent-deep: #382f28;
+      --accent-soft: #ded2c4;
+      --success: #647565;
+      --success-soft: #e3e8e1;
+      --border: #ddd5cb;
+      --border-strong: #b9aea1;
+      --focus: #4f6450;
+      --shadow: 0 18px 50px rgba(53, 45, 37, 0.10);
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      font-size: 1rem;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(222, 210, 196, 0.55), transparent 34%),
+        linear-gradient(180deg, #fbfaf7 0%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .shell {
+      width: min(920px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 50px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent-dark);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(221, 213, 203, 0.92);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .content { padding: clamp(24px, 6vw, 58px); }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.1;
+      overflow-wrap: break-word;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-family: var(--serif);
+      font-size: clamp(2.35rem, 9vw, 5.2rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.85rem, 6vw, 3.1rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+
+    h2:focus { outline: none; }
+    h2:focus-visible { outline: 3px solid var(--focus); outline-offset: 6px; border-radius: 6px; }
+
+    h3 { font-size: 1.05rem; }
+
+    p { line-height: 1.7; }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .lede {
+      max-width: 640px;
+      margin: 0 0 8px;
+      font-size: clamp(1.05rem, 3vw, 1.22rem);
+      color: var(--muted);
+    }
+
+    .mini-note {
+      margin: 16px 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    /* ---------- Buttons ---------- */
+
+    .primary-btn,
+    .secondary-btn,
+    .answer-btn {
+      border: 0;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 26px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--accent-dark);
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .primary-btn:hover { background: var(--accent-deep); transform: translateY(-1px); }
+    .primary-btn:active { transform: translateY(0); }
+
+    .secondary-btn {
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent-dark);
+      border: 1px solid var(--border-strong);
+      font-weight: 750;
+    }
+
+    .secondary-btn:hover:not(:disabled) { background: var(--surface-soft); }
+    .secondary-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* ---------- The Stack (intro) ---------- */
+
+    .stack-preview {
+      display: grid;
+      gap: 6px;
+      max-width: 460px;
+      margin: 30px 0 32px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stack-preview li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 40px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: var(--surface-soft);
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    /* layers step in slightly, like stacked slabs */
+    .stack-preview li:nth-child(1) { margin-right: 0; }
+    .stack-preview li:nth-child(2) { margin-right: 4%; }
+    .stack-preview li:nth-child(3) { margin-right: 8%; }
+    .stack-preview li:nth-child(4) { margin-right: 12%; }
+    .stack-preview li:nth-child(5) { margin-right: 16%; }
+    .stack-preview li:nth-child(6) { margin-right: 20%; }
+
+    .stack-preview li span:last-child {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ---------- Quiz ---------- */
+
+    .quiz-header { padding: 22px 26px 0; }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      margin-bottom: 10px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .stack-track {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stack-track li {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      overflow: hidden;
+    }
+
+    .stack-track li::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 0;
+      background: var(--success);
+      border-radius: inherit;
+      transition: width 260ms ease;
+    }
+
+    .stack-track li.is-placed::after { width: 100%; }
+
+    .stack-track li.is-current {
+      box-shadow: inset 0 0 0 2px var(--success);
+    }
+
+    .stack-labels {
+      display: none;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 5px;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .stack-labels span.is-placed { color: var(--success); font-weight: 700; }
+
+    .placed-note {
+      min-height: 1.5em;
+      margin: 12px 0 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--success);
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+
+    .placed-note.show { opacity: 1; }
+
+    .question-copy { margin-bottom: 22px; }
+
+    .question-help {
+      margin: -4px 0 0;
+      color: var(--muted);
+    }
+
+    .answers { display: grid; gap: 12px; }
+
+    .answer-btn {
+      position: relative;
+      width: 100%;
+      min-height: 64px;
+      padding: 17px 52px 17px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: #fff;
+      color: var(--text);
+      text-align: left;
+    }
+
+    .answer-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--border-strong);
+      background: #faf8f5;
+    }
+
+    .answer-btn:active { transform: translateY(0); }
+
+    .answer-btn.is-selected {
+      border-color: var(--success);
+      background: #f6f8f5;
+      box-shadow: inset 0 0 0 1px var(--success);
+    }
+
+    .answer-btn.is-selected::after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      width: 10px;
+      height: 18px;
+      margin-top: -12px;
+      border: solid var(--success);
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+
+    .answer-label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .answer-detail {
+      display: block;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    /* ---------- Result ---------- */
+
+    .result-banner {
+      padding: clamp(26px, 6vw, 40px);
+      color: #fff;
+      background: linear-gradient(135deg, rgba(76, 66, 56, 0.98), rgba(100, 117, 101, 0.94));
+    }
+
+    .result-banner .eyebrow { color: #eee6db; }
+
+    .result-banner h2 { margin-bottom: 10px; }
+
+    .result-banner h2:focus-visible { outline-color: #fff; }
+
+    .result-banner p {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: #f4efe9;
+    }
+
+    .result-grid {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 32px;
+    }
+
+    .result-box {
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+
+    .result-box.is-lead {
+      border-color: transparent;
+      background: var(--success-soft);
+    }
+
+    .result-box .label {
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .result-box .value {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      line-height: 1.35;
+    }
+
+    .steps-heading {
+      margin: 0 0 16px;
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    .steps {
+      display: grid;
+      gap: 16px;
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 40px;
+      padding: 6px 0 0 54px;
+      line-height: 1.6;
+    }
+
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .dpu-box {
+      margin-top: 36px;
+      padding: clamp(22px, 5vw, 30px);
+      border-radius: var(--radius-md);
+      background: #f0ece5;
+    }
+
+    .dpu-box .eyebrow { color: var(--accent); }
+
+    .dpu-box h3 {
+      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .dpu-box p { margin-top: 0; }
+
+    .affiliate-note {
+      margin: 14px 0 0;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .inapp-note {
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+      color: var(--accent-dark);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .save-tip {
+      max-width: 620px;
+      margin: 16px 0 0;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+      z-index: 100;
+      transform: translateX(-50%);
+      max-width: calc(100% - 30px);
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #fff;
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .toast.show { opacity: 1; }
+
+    .hidden { display: none !important; }
+
+    footer {
+      max-width: 720px;
+      margin: 22px auto 0;
+      padding: 0 8px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (min-width: 600px) {
+      .stack-labels { display: grid; }
+    }
+
+    @media (min-width: 720px) {
+      .result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .result-box.is-lead { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 18px, 920px);
+        padding-top: 16px;
+      }
+
+      .content { padding: 24px 20px 30px; }
+      .quiz-header { padding: 20px 20px 0; }
+
+      .stack-preview li { margin-right: 0 !important; }
+
+      .primary-btn { width: 100%; }
+
+      .quiz-footer,
+      .result-actions { flex-direction: column; }
+
+      .quiz-footer button,
+      .result-actions button,
+      .result-actions a { width: 100%; }
+    }
+
+    @media (max-width: 360px) {
+      .content { padding: 22px 16px 26px; }
+      .quiz-header { padding: 18px 16px 0; }
+      .answer-btn { padding: 15px 44px 15px 16px; }
+      .answer-btn.is-selected::after { right: 16px; }
+      .stack-preview li span:last-child { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    @media print {
+      @page { margin: 16mm; }
+
+      body { background: #fff; padding: 0; min-height: 0; }
+
+      .brand,
+      .result-actions,
+      .save-tip,
+      footer,
+      .dpu-box,
+      .inapp-note,
+      .toast,
+      #introScreen,
+      #quizScreen { display: none !important; }
+
+      .shell { width: 100%; padding: 0; }
+
+      .card {
+        box-shadow: none;
+        border: 0;
+        overflow: visible;
+      }
+
+      .result-banner {
+        padding: 0 0 18px;
+        color: var(--text);
+        background: none;
+        border-bottom: 2px solid var(--text);
+      }
+
+      .result-banner .eyebrow,
+      .result-banner p { color: var(--text); }
+
+      .content { padding: 18px 0 0; }
+
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .result-box.is-lead { grid-column: 1 / -1; }
+
+      .result-box,
+      .steps li { break-inside: avoid; }
+
+      .result-box.is-lead { background: none; border: 1px solid var(--border-strong); }
+
+      .steps li::before { border: 1px solid var(--text); background: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">DP</span>
+      Digital Profit Lab
+    </div>
+
+    <!-- INTRO -->
+    <section id="introScreen" class="card" aria-labelledby="introTitle">
+      <div class="content">
+        <p class="eyebrow">Your personalized starting point</p>
+
+        <h1 id="introTitle">Build your Digital Profit Starter Stack.</h1>
+
+        <p class="lede">
+          You do not need your entire online business figured out today.
+          Answer six quick questions and discover the area that deserves
+          your attention first.
+        </p>
+
+        <ul class="stack-preview" aria-label="Your stack will include">
+          <li><span>Starting point</span><span>Where you are</span></li>
+          <li><span>Strength</span><span>What comes naturally</span></li>
+          <li><span>Visibility</span><span>How you show up</span></li>
+          <li><span>Bottleneck</span><span>What slows you down</span></li>
+          <li><span>Capacity</span><span>Your real weekly time</span></li>
+          <li><span>Next move</span><span>Progress that matters</span></li>
+        </ul>
+
+        <button id="startBtn" class="primary-btn" type="button">
+          Build My Starter&nbsp;Stack&nbsp;→
+        </button>
+
+        <p class="mini-note">
+          No perfect answers required. Choose what feels most true right now.
+        </p>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quizScreen" class="card hidden" aria-labelledby="questionTitle">
+      <div class="quiz-header">
+        <div class="progress-meta">
+          <span id="progressText">Question 1 of 6</span>
+          <span id="progressPlaced">0 of 6 layers placed</span>
+        </div>
+
+        <ol
+          id="stackTrack"
+          class="stack-track"
+          role="progressbar"
+          aria-label="Starter Stack progress"
+          aria-valuemin="0"
+          aria-valuemax="6"
+          aria-valuenow="0"
+        >
+          <li></li><li></li><li></li><li></li><li></li><li></li>
+        </ol>
+
+        <div id="stackLabels" class="stack-labels" aria-hidden="true">
+          <span>Start</span>
+          <span>Strength</span>
+          <span>Visibility</span>
+          <span>Bottleneck</span>
+          <span>Capacity</span>
+          <span>Goal</span>
+        </div>
+
+        <p id="placedNote" class="placed-note" aria-hidden="true"></p>
+      </div>
+
+      <div class="content">
+        <p id="questionEyebrow" class="eyebrow"></p>
+
+        <div class="question-copy">
+          <h2 id="questionTitle" tabindex="-1"></h2>
+          <p id="questionHelp" class="question-help"></p>
+        </div>
+
+        <div id="answers" class="answers" role="group" aria-labelledby="questionTitle"></div>
+
+        <div class="quiz-footer">
+          <button id="backBtn" type="button" class="secondary-btn">
+            ← Back
+          </button>
+
+          <button id="restartQuizBtn" type="button" class="secondary-btn">
+            Start Over
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="resultScreen" class="card hidden" aria-labelledby="resultName">
+      <div class="result-banner">
+        <p class="eyebrow">Your Digital Profit Starter Stack</p>
+        <h2 id="resultName" tabindex="-1"></h2>
+        <p id="resultSummary"></p>
+      </div>
+
+      <div class="content">
+        <div class="result-grid">
+          <div class="result-box is-lead">
+            <div class="label">Best place to begin</div>
+            <p id="startingPointResult" class="value"></p>
+          </div>
+
+          <div class="result-box">
+            <div class="label">Natural advantage</div>
+            <p id="strengthResult" class="value"></p>
+          </div>
+
+          <div class="result-box">
+            <div class="label">Visibility fit</div>
+            <p id="visibilityResult" class="value"></p>
+          </div>
+
+          <div class="result-box">
+            <div class="label">Current bottleneck</div>
+            <p id="bottleneckResult" class="value"></p>
+          </div>
+        </div>
+
+        <h3 class="steps-heading">Your next 3 moves</h3>
+        <ol id="nextSteps" class="steps"></ol>
+
+        <aside class="dpu-box" aria-labelledby="dpuHeadline">
+          <p class="eyebrow">Want help building the bigger picture?</p>
+          <h3 id="dpuHeadline"></h3>
+          <p id="dpuCopy"></p>
+
+          <a
+            id="dpuBtn"
+            class="primary-btn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+          >
+            Explore Digital Profits&nbsp;U&nbsp;→<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+
+          <p class="affiliate-note">
+            Affiliate disclosure: I may earn a commission if you purchase
+            through my link, at no additional cost to you. Results vary.
+            No income outcome is guaranteed.
+          </p>
+        </aside>
+
+        <div class="result-actions">
+          <button id="copyBtn" type="button" class="secondary-btn">
+            Copy My Result
+          </button>
+
+          <button id="printBtn" type="button" class="secondary-btn">
+            Print / Save Result
+          </button>
+
+          <button id="restartBtn" type="button" class="secondary-btn">
+            Retake the Lab
+          </button>
+        </div>
+
+        <p class="save-tip">
+          Your result isn’t stored anywhere, so copy or save it before you
+          close this page. Opened inside the Pinterest app or another app?
+          Tap the menu (⋯) or share icon and choose to open this page in
+          Safari or Chrome, then use Print / Save Result.
+        </p>
+
+        <p id="inAppNote" class="inapp-note hidden">
+          Opened inside TikTok, Instagram, or another app? Tap the ⋯ menu
+          and choose to open this page in your browser to print or save
+          your result.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      The Digital Profit Lab provides educational guidance and a personalized
+      starting-point recommendation based on your answers. It is not financial,
+      legal, or business-performance advice.
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="srStatus" class="sr-only" role="status" aria-live="polite"></div>
+
+  <script>
+    /* =========================================================
+       DIGITAL PROFIT LAB
+       ---------------------------------------------------------
+       EDIT HERE:
+       - AFFILIATE_URL ........ your Digital Profits U link
+       - questions ............ the 6 quiz questions + scoring
+       - results .............. the 6 result paths
+       Everything below "APP LOGIC" runs the experience.
+       ========================================================= */
+
+    const AFFILIATE_URL =
+      "https://shop.beacons.ai/digitalprofitsu/7721a9b5-7e42-4fee-ba95-9a8e35b2b131?affiliateKey=gAAAAABqkufIz7qFulFol4V9wswGwBXOmeS0dTTD1od0TmldlzxBPCGFSzVp8e3F0a4hAJBxlTPpvtkKMyaUhcCu5_MZjuq8WxwxhxhwlEV_Q8_SRGh2VJaLbrXy6X8cXfaYSo7W7nKcH-vtE324mi4exBORaVliBidjI5xOROEQ1H2DfLTq1hE1uKR4whYcOunbXwtjiw6Lw26WErsN_CdwE6E_nxLYOQ%3D%3D";
+
+    const PATHS = [
+      "foundation",
+      "clarity",
+      "visibility",
+      "marketing",
+      "systems",
+      "momentum"
+    ];
+
+    // Short names shown as each answer is "placed" in the Starter Stack.
+    const STACK_LAYER_NAMES = {
+      startingPoint: "Starting point",
+      strength: "Strength",
+      visibility: "Visibility",
+      bottleneck: "Bottleneck",
+      time: "Capacity",
+      goal: "Next goal"
+    };
+
+    const questions = [
+      {
+        eyebrow: "Step 1 · Starting point",
+        title: "Where are you right now?",
+        help: "Choose the answer that sounds most like your current season.",
+        key: "startingPoint",
+        options: [
+          {
+            label: "I’m starting from zero.",
+            detail: "I want to build online, but I need the bigger picture first.",
+            value: "Starting from scratch",
+            scores: { foundation: 5, clarity: 2 }
+          },
+          {
+            label: "I have ideas, but no clear direction.",
+            detail: "I keep circling possibilities and second-guessing what to build.",
+            value: "Ideas without a clear direction",
+            scores: { clarity: 5, foundation: 1 }
+          },
+          {
+            label: "I know what I want to sell.",
+            detail: "The idea is there. Building and setting it up is the part I need help with.",
+            value: "Ready to build the idea",
+            scores: { systems: 4, momentum: 2 }
+          },
+          {
+            label: "I have something to offer, but I need attention.",
+            detail: "Content, audience growth, or showing up consistently feels unclear.",
+            value: "Needs stronger visibility",
+            scores: { visibility: 5, marketing: 1 }
+          },
+          {
+            label: "I get attention, but sales still feel confusing.",
+            detail: "I need a clearer connection between interest, marketing, and the offer.",
+            value: "Needs a clearer marketing path",
+            scores: { marketing: 5, visibility: 1 }
+          },
+          {
+            label: "I know enough to start. I just keep stalling.",
+            detail: "Learning is not the problem anymore. Execution is.",
+            value: "Needs consistent execution",
+            scores: { momentum: 5 }
+          }
+        ]
+      },
+
+      {
+        eyebrow: "Step 2 · Natural advantage",
+        title: "What comes most naturally to you?",
+        help: "Think about what people already rely on you for.",
+        key: "strength",
+        options: [
+          {
+            label: "Teaching or explaining",
+            detail: "I enjoy making confusing things easier to understand.",
+            value: "Teaching and explaining",
+            scores: { visibility: 2, clarity: 2 }
+          },
+          {
+            label: "Creating or designing",
+            detail: "I like turning ideas into something people can see, use, or experience.",
+            value: "Creating and designing",
+            scores: { systems: 2, visibility: 1 }
+          },
+          {
+            label: "Organizing or simplifying",
+            detail: "I naturally create order, processes, checklists, or easier ways to do things.",
+            value: "Organizing and simplifying",
+            scores: { systems: 2, clarity: 2 }
+          },
+          {
+            label: "Recommending or curating",
+            detail: "People trust me to help them choose between options.",
+            value: "Recommending and curating",
+            scores: { marketing: 2, visibility: 2 }
+          },
+          {
+            label: "Solving problems",
+            detail: "I notice what is not working and naturally look for a better way.",
+            value: "Problem solving",
+            scores: { clarity: 2, marketing: 1 }
+          }
+        ]
+      },
+
+      {
+        eyebrow: "Step 3 · Visibility",
+        title: "How would you prefer to show up online?",
+        help: "There is no correct visibility style. Pick what feels sustainable.",
+        key: "visibility",
+        options: [
+          {
+            label: "Face-forward",
+            detail: "I’m comfortable being the visible personality behind the brand.",
+            value: "Face-forward content",
+            scores: { visibility: 2, momentum: 1 }
+          },
+          {
+            label: "Mostly faceless",
+            detail: "I prefer content where my face is not the main focus.",
+            value: "Faceless-first content",
+            scores: { visibility: 2, systems: 1 }
+          },
+          {
+            label: "A mix of both",
+            detail: "I want the freedom to choose based on the content.",
+            value: "A blended content style",
+            scores: { visibility: 2 }
+          },
+          {
+            label: "I honestly don’t know yet",
+            detail: "I need permission to figure that out as I go.",
+            value: "Still exploring visibility",
+            scores: { foundation: 2, clarity: 1 }
+          }
+        ]
+      },
+
+      {
+        eyebrow: "Step 4 · Bottleneck",
+        title: "What is slowing you down the most?",
+        help: "This answer carries the most weight in your result.",
+        key: "bottleneck",
+        options: [
+          {
+            label: "I don’t know what to offer.",
+            detail: "I need product, audience, or direction clarity.",
+            value: "Offer clarity",
+            scores: { clarity: 7 }
+          },
+          {
+            label: "I don’t know what to post or how to get seen.",
+            detail: "Visibility and content feel harder than they should.",
+            value: "Content and visibility",
+            scores: { visibility: 7 }
+          },
+          {
+            label: "Marketing and sales feel confusing.",
+            detail: "I need to understand how attention connects to an offer.",
+            value: "Marketing and conversion",
+            scores: { marketing: 7 }
+          },
+          {
+            label: "The tech or setup overwhelms me.",
+            detail: "Tools, platforms, workflows, and setup are slowing me down.",
+            value: "Setup and systems",
+            scores: { systems: 7 }
+          },
+          {
+            label: "I keep learning but not implementing.",
+            detail: "I need more action and less collecting information.",
+            value: "Implementation and consistency",
+            scores: { momentum: 7 }
+          },
+          {
+            label: "I don’t even know where to begin.",
+            detail: "Everything feels like it comes before everything else.",
+            value: "Business foundations",
+            scores: { foundation: 7 }
+          }
+        ]
+      },
+
+      {
+        eyebrow: "Step 5 · Capacity",
+        title: "How much time can you realistically give this each week?",
+        help: "Not fantasy-calendar time. Real-life time.",
+        key: "time",
+        options: [
+          {
+            label: "Less than 2 hours",
+            detail: "I need a very focused, low-overwhelm starting point.",
+            value: "Under 2 hours per week",
+            scores: { momentum: 2, foundation: 1 }
+          },
+          {
+            label: "2–5 hours",
+            detail: "I can build steadily in small pockets of time.",
+            value: "2–5 hours per week",
+            scores: { momentum: 1 }
+          },
+          {
+            label: "5–10 hours",
+            detail: "I have enough room to learn and implement consistently.",
+            value: "5–10 hours per week",
+            scores: { systems: 1 }
+          },
+          {
+            label: "10+ hours",
+            detail: "I have meaningful weekly time to build and test.",
+            value: "10+ hours per week",
+            scores: { marketing: 1 }
+          },
+          {
+            label: "It changes every week",
+            detail: "I need a flexible plan that survives real life.",
+            value: "A variable weekly schedule",
+            scores: { momentum: 2, foundation: 1 }
+          }
+        ]
+      },
+
+      {
+        eyebrow: "Step 6 · Next goal",
+        title: "What would feel like meaningful progress next?",
+        help: "Choose the outcome you most want to move toward first.",
+        key: "goal",
+        options: [
+          {
+            label: "Choose a clear offer or direction",
+            detail: "I want to stop circling ideas and make a decision.",
+            value: "Choosing a clear offer",
+            scores: { clarity: 4 }
+          },
+          {
+            label: "Build and set up what I want to sell",
+            detail: "I’m ready to turn the idea into something real.",
+            value: "Building and setting up the offer",
+            scores: { systems: 4 }
+          },
+          {
+            label: "Create content and grow visibility",
+            detail: "I want people to find, understand, and trust what I do.",
+            value: "Creating content and visibility",
+            scores: { visibility: 4 }
+          },
+          {
+            label: "Understand how to market and sell",
+            detail: "I want a clearer path from attention to offer.",
+            value: "Learning marketing and sales",
+            scores: { marketing: 4 }
+          },
+          {
+            label: "Become more consistent",
+            detail: "I want to stop restarting and build an actual rhythm.",
+            value: "Building consistent momentum",
+            scores: { momentum: 4 }
+          },
+          {
+            label: "Understand how online business fits together",
+            detail: "I want the foundation before I start stacking tactics.",
+            value: "Understanding the business foundation",
+            scores: { foundation: 4 }
+          }
+        ]
+      }
+    ];
+
+    const results = {
+      foundation: {
+        name: "The Foundation Path",
+        summary:
+          "You do not need another random tactic. Your strongest next move is understanding the basic pieces of a digital business well enough to make your next decisions with confidence.",
+        start:
+          "Learn the big picture before trying to build every piece at once.",
+        steps: [
+          "Choose one simple online-business goal for the next 30 days.",
+          "Identify one audience or problem you are most interested in learning to serve.",
+          "Create one repeatable weekly learning-and-implementation block instead of trying to master everything at once."
+        ],
+        headline: "Build the foundation before stacking tactics.",
+        dpu:
+          "If you want structured education that helps you understand the larger digital-business picture and begin developing the skills behind it, Digital Profits U is the resource I recommend exploring."
+      },
+
+      clarity: {
+        name: "The Clarity Path",
+        summary:
+          "Your biggest opportunity is not doing more. It is deciding what deserves your attention first. A clearer offer direction will make the next decisions much easier.",
+        start:
+          "Clarify what you want to build, who it helps, and why it matters.",
+        steps: [
+          "List three problems you understand well enough to help someone solve.",
+          "Choose one problem and describe the simplest useful outcome you could help create.",
+          "Treat that idea as a hypothesis to test—not a lifelong commitment."
+        ],
+        headline: "You do not need more ideas. You need a direction.",
+        dpu:
+          "Once you know what you are trying to build, structured digital-business training can help you understand how the surrounding pieces—content, marketing, setup, and execution—work together. That is why I recommend exploring Digital Profits U."
+      },
+
+      visibility: {
+        name: "The Visibility Path",
+        summary:
+          "You may already have useful ideas or an offer. Your next growth edge is learning how to communicate consistently so the right people can discover and understand what you do.",
+        start:
+          "Create a simple, sustainable visibility rhythm around one clear message.",
+        steps: [
+          "Choose three content themes tied directly to the problem you want to be known for.",
+          "Pick the visibility style you can sustain—face-forward, faceless, or blended.",
+          "Publish three useful pieces of content before judging whether your strategy works."
+        ],
+        headline: "Useful work still needs visibility.",
+        dpu:
+          "If you want structured support learning how content, audience-building, digital marketing, and online offers fit together, Digital Profits U is the resource I recommend exploring next."
+      },
+
+      marketing: {
+        name: "The Marketing Path",
+        summary:
+          "You do not necessarily need more attention. You need a clearer bridge between the problem people care about, the message they see, and the offer you want them to consider.",
+        start:
+          "Simplify the journey from interest to next step.",
+        steps: [
+          "Choose one offer and write the single problem it helps address in plain language.",
+          "Give your content one clear next action instead of several competing calls to action.",
+          "Map the simple journey: problem → useful content → conversation or page → offer."
+        ],
+        headline: "Attention becomes useful when it has somewhere to go.",
+        dpu:
+          "If you want to strengthen your understanding of digital marketing, online offers, and the systems that support them, Digital Profits U is the resource I recommend exploring."
+      },
+
+      systems: {
+        name: "The Systems Path",
+        summary:
+          "Your idea may not be the problem. The friction is turning it into something functional without getting buried in tools, platforms, setup, and unnecessary complexity.",
+        start:
+          "Build the simplest working version before building the fanciest version.",
+        steps: [
+          "Write down the minimum pieces required for someone to discover, understand, and access your offer.",
+          "Choose the simplest tool for each required job instead of building a giant tech stack.",
+          "Create the minimum working version first, then improve it after real use."
+        ],
+        headline: "Simple and working beats impressive and unfinished.",
+        dpu:
+          "If you want structured education around building the digital-business skills and setup knowledge behind an online offer, Digital Profits U is the resource I recommend exploring."
+      },
+
+      momentum: {
+        name: "The Momentum Path",
+        summary:
+          "You probably do not need more information right now. Your biggest opportunity is turning what you already know into a repeatable pattern of implementation.",
+        start:
+          "Shrink the plan until consistent action becomes realistic.",
+        steps: [
+          "Choose one 20-minute action block you can repeat even during busy weeks.",
+          "Define only three must-do tasks for the next seven days.",
+          "Track completion before tracking outcomes. Build evidence that you follow through."
+        ],
+        headline: "Your next breakthrough may look suspiciously like consistency.",
+        dpu:
+          "If you want structured training plus a clearer framework for turning digital-business knowledge into implementation, Digital Profits U is the resource I recommend exploring."
+      }
+    };
+
+    /* =========================================================
+       APP LOGIC
+       ========================================================= */
+
+    let currentQuestion = 0;
+    let answers = [];
+    let scores = createEmptyScores();
+
+    const introScreen = document.getElementById("introScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
+
+    const progressText = document.getElementById("progressText");
+    const progressPlaced = document.getElementById("progressPlaced");
+    const stackTrack = document.getElementById("stackTrack");
+    const stackSegments = Array.from(stackTrack.children);
+    const stackLabels = Array.from(document.getElementById("stackLabels").children);
+    const placedNote = document.getElementById("placedNote");
+    const srStatus = document.getElementById("srStatus");
+
+    const questionEyebrow = document.getElementById("questionEyebrow");
+    const questionTitle = document.getElementById("questionTitle");
+    const questionHelp = document.getElementById("questionHelp");
+    const answersContainer = document.getElementById("answers");
+
+    const backBtn = document.getElementById("backBtn");
+
+    document.getElementById("dpuBtn").href = AFFILIATE_URL;
+
+    // Show the "open in your browser" tip only inside social-app browsers,
+    // where the Print / Save button often does nothing.
+    if (isInAppBrowser()) {
+      document.getElementById("inAppNote").classList.remove("hidden");
+    }
+
+    function isInAppBrowser() {
+      const ua = navigator.userAgent || "";
+      return /Instagram|FBAN|FBAV|FB_IAB|musical_ly|BytedanceWebview|TikTok|trill|Pinterest|Snapchat|Twitter|LinkedInApp|Line\//i.test(ua);
+    }
+
+    document.getElementById("startBtn").addEventListener("click", startQuiz);
+    backBtn.addEventListener("click", goBack);
+    document.getElementById("restartQuizBtn").addEventListener("click", resetLab);
+    document.getElementById("restartBtn").addEventListener("click", resetLab);
+    document.getElementById("copyBtn").addEventListener("click", copyResult);
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    function createEmptyScores() {
+      return PATHS.reduce((acc, path) => {
+        acc[path] = 0;
+        return acc;
+      }, {});
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function startQuiz() {
+      introScreen.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+      currentQuestion = 0;
+      setPlacedNote("");
+      renderQuestion();
+      scrollToTop();
+      focusQuestion();
+    }
+
+    function renderStack() {
+      const placedCount = answers.filter(Boolean).length;
+
+      stackSegments.forEach((segment, index) => {
+        const placed = Boolean(answers[index]);
+        segment.classList.toggle("is-placed", placed);
+        segment.classList.toggle("is-current", index === currentQuestion && !placed);
+        stackLabels[index].classList.toggle("is-placed", placed);
+      });
+
+      stackTrack.setAttribute("aria-valuenow", String(placedCount));
+      stackTrack.setAttribute(
+        "aria-valuetext",
+        `${placedCount} of ${questions.length} layers placed`
+      );
+      progressPlaced.textContent =
+        `${placedCount} of ${questions.length} layers placed`;
+    }
+
+    function setPlacedNote(text) {
+      placedNote.textContent = text;
+      placedNote.classList.toggle("show", Boolean(text));
+    }
+
+    function renderQuestion() {
+      const question = questions[currentQuestion];
+      const stepNumber = currentQuestion + 1;
+      const previous = answers[currentQuestion];
+
+      questionEyebrow.textContent = question.eyebrow;
+      questionTitle.textContent = question.title;
+      questionHelp.textContent = question.help;
+
+      progressText.textContent = `Question ${stepNumber} of ${questions.length}`;
+      renderStack();
+
+      answersContainer.innerHTML = "";
+
+      question.options.forEach((option, optionIndex) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-btn";
+
+        const isSelected = previous && previous.optionIndex === optionIndex;
+        if (isSelected) button.classList.add("is-selected");
+        button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+
+        button.innerHTML = `
+          <span class="answer-label">${escapeHTML(option.label)}</span>
+          <span class="answer-detail">${escapeHTML(option.detail)}</span>
+        `;
+
+        button.addEventListener("click", () => {
+          selectAnswer(optionIndex);
+        });
+
+        answersContainer.appendChild(button);
+      });
+
+      backBtn.disabled = currentQuestion === 0;
+
+      srStatus.textContent =
+        `Question ${stepNumber} of ${questions.length}. ${question.title}`;
+    }
+
+    function focusQuestion() {
+      // Move keyboard/screen-reader focus to the new question heading.
+      questionTitle.focus({ preventScroll: true });
+    }
+
+    function selectAnswer(optionIndex) {
+      const question = questions[currentQuestion];
+      const option = question.options[optionIndex];
+
+      answers[currentQuestion] = {
+        key: question.key,
+        label: option.label,
+        value: option.value,
+        optionIndex
+      };
+
+      recalculateScores();
+
+      setPlacedNote(`Added to your stack: ${STACK_LAYER_NAMES[question.key]}, ${option.value.charAt(0).toLowerCase() + option.value.slice(1)}.`);
+
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion += 1;
+        renderQuestion();
+        scrollToTop();
+        focusQuestion();
+      } else {
+        renderStack();
+        showResult();
+      }
+    }
+
+    function goBack() {
+      if (currentQuestion === 0) return;
+
+      currentQuestion -= 1;
+      setPlacedNote("");
+      renderQuestion();
+      scrollToTop();
+      focusQuestion();
+    }
+
+    function recalculateScores() {
+      scores = createEmptyScores();
+
+      answers.forEach((answer, questionIndex) => {
+        if (!answer) return;
+
+        const question = questions[questionIndex];
+        const option = question.options[answer.optionIndex];
+
+        Object.entries(option.scores).forEach(([path, points]) => {
+          scores[path] += points;
+        });
+      });
+    }
+
+    function getWinningPath() {
+      const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+      // 1. A single highest score wins outright.
+      if (ranked.length < 2 || ranked[0][1] !== ranked[1][1]) {
+        return ranked[0][0];
+      }
+
+      const tiedPaths = ranked
+        .filter((entry) => entry[1] === ranked[0][1])
+        .map((entry) => entry[0]);
+
+      // 2. First tie-breaker: Question 4 (bottleneck), the user's most
+      //    direct statement of current need.
+      const bottleneckPath = getAnswerPath("bottleneck");
+      if (bottleneckPath && tiedPaths.includes(bottleneckPath)) {
+        return bottleneckPath;
+      }
+
+      // 3. Second tie-breaker: Question 6 (next goal), what the user
+      //    most wants to move toward.
+      const goalPath = getAnswerPath("goal");
+      if (goalPath && tiedPaths.includes(goalPath)) {
+        return goalPath;
+      }
+
+      // 4. Final safety fallback: PATHS list order.
+      return ranked[0][0];
+    }
+
+    // Returns the path an answer scores most strongly toward, or null.
+    function getAnswerPath(key) {
+      const answer = answers.find((item) => item && item.key === key);
+      if (!answer) return null;
+
+      const question = questions.find((q) => q.key === key);
+      const option = question.options[answer.optionIndex];
+
+      return Object.entries(option.scores).sort((a, b) => b[1] - a[1])[0][0];
+    }
+
+    function getAnswerValue(key) {
+      const answer = answers.find((item) => item && item.key === key);
+      return answer ? answer.value : "Not specified";
+    }
+
+    function showResult() {
+      recalculateScores();
+
+      const winningPath = getWinningPath();
+      const result = results[winningPath];
+
+      quizScreen.classList.add("hidden");
+      introScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+
+      document.getElementById("resultName").textContent = result.name;
+      document.getElementById("resultSummary").textContent = result.summary;
+
+      document.getElementById("startingPointResult").textContent = result.start;
+      document.getElementById("strengthResult").textContent = getAnswerValue("strength");
+      document.getElementById("visibilityResult").textContent = getAnswerValue("visibility");
+      document.getElementById("bottleneckResult").textContent = getAnswerValue("bottleneck");
+
+      const stepsList = document.getElementById("nextSteps");
+      stepsList.innerHTML = "";
+
+      result.steps.forEach((step) => {
+        const item = document.createElement("li");
+        item.textContent = step;
+        stepsList.appendChild(item);
+      });
+
+      document.getElementById("dpuHeadline").textContent = result.headline;
+      document.getElementById("dpuCopy").textContent = result.dpu;
+
+      resultScreen.dataset.path = winningPath;
+
+      setPlacedNote("");
+      srStatus.textContent = `Your Starter Stack is complete. ${result.name}.`;
+
+      scrollToTop();
+      document.getElementById("resultName").focus({ preventScroll: true });
+    }
+
+    async function copyResult() {
+      const path = resultScreen.dataset.path;
+      if (!path || !results[path]) return;
+
+      const result = results[path];
+
+      const summary = [
+        "MY DIGITAL PROFIT STARTER STACK",
+        "",
+        result.name,
+        "",
+        `Best place to begin: ${result.start}`,
+        `Natural advantage: ${getAnswerValue("strength")}`,
+        `Visibility fit: ${getAnswerValue("visibility")}`,
+        `Current bottleneck: ${getAnswerValue("bottleneck")}`,
+        "",
+        "My next 3 moves:",
+        `1. ${result.steps[0]}`,
+        `2. ${result.steps[1]}`,
+        `3. ${result.steps[2]}`
+      ].join("\n");
+
+      try {
+        if (!navigator.clipboard || !window.isSecureContext) {
+          throw new Error("Clipboard API unavailable");
+        }
+        await navigator.clipboard.writeText(summary);
+        showToast("Your Starter Stack was copied.");
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = summary;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        let copied = false;
+        try {
+          copied = document.execCommand("copy");
+        } catch {
+          copied = false;
+        }
+
+        showToast(
+          copied
+            ? "Your Starter Stack was copied."
+            : "Copy didn’t work on this device. Use Print / Save Result instead."
+        );
+
+        document.body.removeChild(textarea);
+        document.getElementById("copyBtn").focus({ preventScroll: true });
+      }
+    }
+
+    function resetLab() {
+      currentQuestion = 0;
+      answers = [];
+      scores = createEmptyScores();
+
+      delete resultScreen.dataset.path;
+      setPlacedNote("");
+      renderStack();
+
+      quizScreen.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      introScreen.classList.remove("hidden");
+
+      scrollToTop();
+      document.getElementById("startBtn").focus({ preventScroll: true });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      window.clearTimeout(showToast.timeout);
+
+      showToast.timeout = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
